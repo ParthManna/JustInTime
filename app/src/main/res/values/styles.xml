@@ -1,0 +1,19 @@
+<resources>
+    <style name="Widget.Theme.TodoListapp.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+        <!-- Style for Calendar Dates -->
+        <style name="CalendarDateText" parent="TextAppearance.AppCompat.Body1">
+            <item name="android:textColor">#FFFFFF</item> <!-- White for dates -->
+            <item name="android:textSize">16sp</item>
+        </style>
+
+        <!-- Style for Weekday Names -->
+        <style name="CalendarWeekDayText" parent="TextAppearance.AppCompat.Caption">
+            <item name="android:textColor">#D1D1D1</item> <!-- Light gray for weekdays -->
+            <item name="android:textSize">14sp</item>
+        </style>
+
+
+</resources>

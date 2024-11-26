@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#8A56AC" /> <!-- Purple vertical bar -->
+    <size android:width="2dp" /> <!-- Thickness of the bar -->
+</shape>
