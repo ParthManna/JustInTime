@@ -56,7 +56,20 @@ class CalenderAdapter(
             }
             else -> {
                 // Days in the current month
-                holder.dayOfMonth.setTextColor(Color.WHITE) // Default black
+                holder.dayOfMonth.setTextColor(Color.WHITE)
+
+                // Days in the current month
+                val currentDate = LocalDate.of(
+                    selectedDate.year,
+                    selectedDate.monthValue,
+                    dayText.toInt()
+                )
+                // Highlight today's date
+                val today = LocalDate.now()
+                if (currentDate == today) {
+                    holder.dayOfMonth.setBackgroundResource(R.drawable.today_background) // Set background
+                    holder.dayOfMonth.setTextColor(Color.BLACK) // Text color for visibility
+                }
             }
         }
 
@@ -66,9 +79,8 @@ class CalenderAdapter(
                 selectedDate.year,
                 selectedDate.monthValue,
                 dayText.toInt()
-            ).dayOfWeek.value // 1 (Monday) to 7 (Sunday)
+            ).dayOfWeek.value
 
-            // Highlight weekends (Saturday and Sunday)
             if (dayOfWeek == DayOfWeek.SUNDAY.value) {
                 holder.dayOfMonth.setTextColor(Color.RED)
             }
@@ -89,7 +101,7 @@ class CalenderAdapter(
         val dayOfMonth: TextView = itemView.findViewById(R.id.celldaytext)
 
         init {
-            itemView.setOnClickListener(this) // Set the click listener for the entire item
+            itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {

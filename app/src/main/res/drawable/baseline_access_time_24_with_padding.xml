@@ -1,0 +1,11 @@
+<!-- res/drawable/baseline_access_time_24_with_padding.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Adding padding to the vector drawable -->
+    <item
+        android:drawable="@drawable/baseline_access_time_24"
+        android:right="4dp"
+        android:left="4dp"
+        android:top="4dp"
+        android:bottom="15dp"
+        />
+</layer-list>
