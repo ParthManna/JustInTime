@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_margin="10dp"
-        android:padding="10dp"
         android:elevation="10dp"
         app:cardCornerRadius="10dp">
 
@@ -19,12 +15,13 @@
         <View
             android:id="@+id/viewColorTag"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="142dp"
             android:background="@android:color/transparent" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="142dp">
+
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -59,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_item"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="43dp"
             android:padding="10dp">
 
             <!-- Clickable Container -->
@@ -171,5 +168,4 @@
 
             </RelativeLayout>
         </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
-</RelativeLayout>
+    </androidx.cardview.widget.CardView>

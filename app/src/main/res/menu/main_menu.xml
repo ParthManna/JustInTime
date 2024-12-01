@@ -9,10 +9,10 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/notification"
+        android:id="@+id/search"
         android:title="notification"
         android:contentDescription="Search content"
-        android:icon="@drawable/_citypng_com_white_notification_bell_icon_transparent_background___700x700"
+        android:icon="@android:drawable/ic_search_category_default"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>

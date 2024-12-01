@@ -226,7 +226,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
-        android:text="SAVE TASK"
+        android:text="SAVE NOTE"
         android:textColor="@android:color/white"
         android:background="@drawable/task_button"
         android:contentDescription="Save Task Button" />

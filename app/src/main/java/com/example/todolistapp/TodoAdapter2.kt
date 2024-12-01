@@ -10,13 +10,13 @@ import java.util.Date
 import java.util.Locale
 import java.util.Random
 
-class TodoAdapter (val list : List<TodoModel>) :
-    RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
+class TodoAdapter2 (val list : List<TodoModel>) :
+    RecyclerView.Adapter<TodoAdapter2.TodoViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         return TodoViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_todo, parent, false))
+            .inflate(R.layout.note_item, parent, false))
     }
 
     override fun getItemId(position: Int): Long {
@@ -33,9 +33,9 @@ class TodoAdapter (val list : List<TodoModel>) :
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(todoModel: TodoModel) {
             with(itemView){
-                val colors = resources.getIntArray(R.array.random_color)
-                val randomColor = colors[Random().nextInt(colors.size)]
-                findViewById<View>(R.id.viewColorTag).setBackgroundColor(randomColor)
+//                val colors = resources.getIntArray(R.array.random_color)
+//                val randomColor = colors[Random().nextInt(colors.size)]
+//                findViewById<View>(R.id.viewColorTag).setBackgroundColor(randomColor)
                 findViewById<TextView>(R.id.txtShowTitle).text = todoModel.title
                 findViewById<TextView>(R.id.txtShowTask).text = todoModel.description
                 findViewById<TextView>(R.id.txtShowCategory).text = todoModel.category
@@ -55,10 +55,6 @@ class TodoAdapter (val list : List<TodoModel>) :
             val myformat = "EEE, d MMM yyyy"
             val sdf = SimpleDateFormat(myformat, Locale.getDefault())
             itemView.findViewById<TextView>(R.id.txtShowDate).text = sdf.format(Date(date))
-
-            val myformat2 = "d"
-            val sdf2 = SimpleDateFormat(myformat2, Locale.getDefault())
-            itemView.findViewById<TextView>(R.id.timeline).text = sdf2.format(Date(date))
         }
 
 

@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface TodoDao {
+interface TodoDao2 {
 
     @Insert
     suspend fun insetTask(todoModel: TodoModel): Long

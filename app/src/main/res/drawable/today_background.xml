@@ -4,16 +4,12 @@
 
     <!-- Set the size of the circle -->
     <size
-        android:width="30dp"
-        android:height="30dp" />
+        android:width="35dp"
+        android:height="35dp" />
 
     <!-- Set the color of the circle -->
     <solid android:color="#9b6cf3" />
 
     <!-- Optional padding for content inside the circle -->
-    <padding
-        android:left="4dp"
-        android:top="4dp"
-        android:right="4dp"
-        android:bottom="4dp" />
+
 </shape>
