@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- res/drawable/instagram_gradient.xml -->
+    <gradient xmlns:android="http://schemas.android.com/apk/res/android"
+        android:type="linear"
+        android:angle="270"
+        android:startColor="#9C27B0"
+        android:endColor="#5C17D5"
+        android:gradientRadius="500"
+        android:centerX="0.5"
+        android:centerY="0.5"
+        android:useLevel="false"/>
+
+    <corners android:radius="10dp"/>
+</shape>

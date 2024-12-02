@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:id="@+id/main"
-    android:background="@drawable/button_background_task"
+    android:theme="@style/Tasktheme"
+    android:background="@drawable/background"
     tools:context=".TaskActivity">
 
     <!-- App Bar Layout -->
@@ -15,18 +16,37 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@null">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:elevation="4dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarAddTask"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/background_button"
+            android:elevation="4dp"
+            android:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="New Task"
-            android:background="@null"
-            app:titleTextColor="@android:color/white" />
-    </com.google.android.material.appbar.AppBarLayout>
+            app:titleTextColor="#FFFFFF"
+            app:titleTextAppearance="@style/ToolbarTitleText">
 
-    <TextView
+        <!-- Navigation Icon (e.g., Back button) -->
+        <ImageView
+            android:id="@+id/toolbarNavigationIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_arrow_back_24"
+            android:contentDescription="Back"
+            android:padding="8dp"
+            android:layout_gravity="start|center_vertical"
+            app:tint="#FFFFFF" />
+
+    </androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.AppBarLayout>
+
+
+<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -42,7 +62,7 @@
         android:id="@+id/titleInplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="?attr/colorPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -50,7 +70,6 @@
         app:boxCornerRadiusBottomEnd="8dp"
         app:errorEnabled="true"
         android:hint="Enter Task Title"
-        android:textColorHint="@android:color/darker_gray"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
@@ -69,6 +88,7 @@
     <!-- Task Description Label -->
     <TextView
         android:id="@+id/taskDescriptionLabel"
+        style="@style/LabelStyle"
         android:text="What is to be done?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,7 +103,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="?attr/colorPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -91,7 +111,6 @@
         app:boxCornerRadiusBottomEnd="8dp"
         app:errorEnabled="true"
         android:hint="Enter Task Description"
-        android:textColorHint="@android:color/darker_gray"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
@@ -117,6 +136,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
+        style="@style/LabelStyle"
         android:text="Set reminder date and time"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
@@ -125,7 +145,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="?attr/colorPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -133,7 +153,6 @@
         app:boxCornerRadiusBottomEnd="8dp"
         app:errorEnabled="true"
         android:hint="Set Date"
-        app:hintTextColor="@android:color/darker_gray"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
@@ -160,7 +179,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:boxStrokeColor="?attr/colorPrimary"
+        app:boxStrokeColor="@color/colorPrimary"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="8dp"
         app:boxCornerRadiusTopEnd="8dp"
@@ -228,7 +247,8 @@
         android:layout_marginEnd="10dp"
         android:text="SAVE TASK"
         android:textColor="@android:color/white"
-        android:background="@drawable/task_button"
+        android:background="@drawable/background_button_2"
+        android:shadowRadius="@integer/material_motion_duration_long_2"
         android:contentDescription="Save Task Button" />
 
 </LinearLayout>

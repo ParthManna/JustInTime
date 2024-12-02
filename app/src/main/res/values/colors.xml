@@ -9,6 +9,8 @@
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
     <color name="darkBackground">#1C1B29</color>
+    <color name="colorAccent">#4B61FA</color>
+    <color name="colorPrimary">#3F51B5</color>
 
     <color name="weekendText">#FF5F5F</color>
     <color name="weekdayText">#D1D1D1</color>

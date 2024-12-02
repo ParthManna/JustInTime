@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
@@ -12,4 +12,8 @@
         <item name="colorSecondary">@android:color/holo_blue_bright</item>
     </style>
 
+    <style name="Base.Theme.Todo_P" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your primary color for night theme -->
+        <item name="colorPrimary">@color/colorAccent</item>
+    </style>
 </resources>

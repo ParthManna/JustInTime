@@ -131,6 +131,7 @@ class BlankFragment1 : Fragment(R.layout.fragment_blank1) {
                         lifecycleScope.launch(Dispatchers.IO) {
                             try {
                                 val taskToRestore = todo.copy(isFinished = if (direction == ItemTouchHelper.LEFT) -1 else todo.isFinished)
+                                taskToRestore.id = 0
                                 db.todoDao().insetTask(taskToRestore) // Re-insert task into the database
                                 withContext(Dispatchers.Main) {
                                     list.add(position, taskToRestore) // Add back to the list
