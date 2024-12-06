@@ -14,16 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.todolistapp.databinding.ActivityTask2Binding
+import com.example.todolistapp.databinding.ActivityNoteBinding
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 
-class TaskActivity2 : AppCompatActivity(), View.OnClickListener {
+class NoteActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var binding: ActivityTask2Binding
+    private lateinit var binding: ActivityNoteBinding
     private lateinit var myCalendar: Calendar
 
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
@@ -36,7 +36,7 @@ class TaskActivity2 : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityTask2Binding.inflate(layoutInflater)
+        binding = ActivityNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Apply insets for proper padding
@@ -97,7 +97,7 @@ class TaskActivity2 : AppCompatActivity(), View.OnClickListener {
         // Insert task asynchronously and set an alarm
         lifecycleScope.launch {
             val newTaskId = db.todoDao2().insetTask(todoModel)
-            Toast.makeText(this@TaskActivity2, "Note saved successfully!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@NoteActivity, "Note saved successfully!", Toast.LENGTH_SHORT).show()
 
             finish() // Close the activity after saving
         }

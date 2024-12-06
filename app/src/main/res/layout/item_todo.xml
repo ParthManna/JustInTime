@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_background"
+    android:layout_margin="2dp"
+    >
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_margin="10dp"
         android:elevation="10dp"
+        app:cardElevation="5dp"
         app:cardCornerRadius="10dp">
 
         <!-- Background View -->
@@ -54,10 +61,10 @@
         <!-- Main Content Layout -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/background_item"
             android:layout_marginStart="43dp"
-            android:padding="10dp">
+>
 
             <!-- Clickable Container -->
             <RelativeLayout
@@ -86,7 +93,7 @@
                     android:layout_height="1dp"
                     android:background="#FFFFFF"
                     android:layout_below="@id/txtShowTitle"
-                    android:layout_marginTop="8dp" />
+                     />
 
                 <!-- Subtitle -->
                 <TextView
@@ -96,28 +103,33 @@
                     android:layout_below="@id/txtShowTitle"
                     android:layout_marginTop="8dp"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:text="Task SubTitle"
                     android:textColor="@android:color/white"
                     android:textSize="16sp" />
 
                 <!-- Category -->
+
+                <!-- Date Label -->
+
                 <TextView
                     android:id="@+id/txtShowCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@id/txtShowTitle"
-                    android:layout_marginTop="8dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="-32.5dp"
+                    android:background="@drawable/circle_2"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:gravity="center"
                     android:maxWidth="80dp"
+                    android:maxLines="1"
+                    android:padding="5dp"
                     android:text="Category"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     tools:text="Personal" />
 
-                <!-- Date Label -->
                 <TextView
                     android:id="@+id/textDate"
                     android:layout_width="wrap_content"
@@ -169,3 +181,4 @@
             </RelativeLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+</RelativeLayout>

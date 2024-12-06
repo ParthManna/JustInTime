@@ -48,7 +48,7 @@ class CalenderAdapter(
         when {
             position < firstDayIndex -> {
                 // Days from the previous month
-                holder.dayOfMonth.setTextColor(Color.LTGRAY) // Light gray
+                holder.dayOfMonth.setTextColor(Color.parseColor("#7E7E7E")) // Light gray
             }
             position > lastDayIndex -> {
                 // Days from the next month

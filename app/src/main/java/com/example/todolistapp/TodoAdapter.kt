@@ -1,5 +1,6 @@
 package com.example.todolistapp
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,9 +34,9 @@ class TodoAdapter (val list : List<TodoModel>) :
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(todoModel: TodoModel) {
             with(itemView){
-                val colors = resources.getIntArray(R.array.random_color)
-                val randomColor = colors[Random().nextInt(colors.size)]
-                findViewById<View>(R.id.viewColorTag).setBackgroundColor(randomColor)
+//                val colors = resources.getIntArray(R.array.random_color)
+//                val randomColor = colors[Random().nextInt(colors.size)]
+                findViewById<View>(R.id.viewColorTag).setBackgroundColor(Color.BLACK)
                 findViewById<TextView>(R.id.txtShowTitle).text = todoModel.title
                 findViewById<TextView>(R.id.txtShowTask).text = todoModel.description
                 findViewById<TextView>(R.id.txtShowCategory).text = todoModel.category

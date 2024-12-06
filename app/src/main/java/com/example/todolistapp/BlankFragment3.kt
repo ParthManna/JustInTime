@@ -25,15 +25,16 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.todolistapp.CalendarUtils.selectedDate
 import com.example.todolistapp.databinding.FragmentBlank1Binding
+import com.example.todolistapp.databinding.FragmentBlank3Binding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
-class BlankFragment1 : Fragment(R.layout.fragment_blank1) {
+class BlankFragment3 : Fragment(R.layout.fragment_blank3) {
 
-    private var _binding: FragmentBlank1Binding? = null
+    private var _binding: FragmentBlank3Binding? = null
     private val binding get() = _binding!!
     private lateinit var viewPager: ViewPager
     private lateinit var viewPager2: ViewPager
@@ -42,25 +43,25 @@ class BlankFragment1 : Fragment(R.layout.fragment_blank1) {
     private val todoList = arrayListOf<TodoModel>()
     private val todoAdapter: TodoAdapter by lazy { TodoAdapter(todoList) }
     private val db by lazy { AppDatabase.getDatabase(requireContext()) }
-    private var isExpanded = true
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBlank1Binding.inflate(inflater, container, false)
+        _binding = FragmentBlank3Binding.inflate(inflater, container, false)
 
         setupRecyclerView()
         initSwipe()
         observeTasks()
-        setupViewPager()
-//        setupViewPager2()
+//        setupViewPager()
+        setupViewPager2()
         setupDefaultFragment()
 
-        binding.fullscreenButton.setOnClickListener {
+
+        binding.fullscreenExitButton.setOnClickListener {
             val fragmentTransaction = parentFragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.frag_container, BlankFragment3())
+            fragmentTransaction.replace(R.id.frag_container, BlankFragment1())
             fragmentTransaction.commit()
 
         }
@@ -80,10 +81,10 @@ class BlankFragment1 : Fragment(R.layout.fragment_blank1) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setupDefaultFragment() {
-        val monthlyFragment = parentFragmentManager.findFragmentByTag("MonthlyFragment")
+        val monthlyFragment = parentFragmentManager.findFragmentByTag("WeekFragment")
         if (monthlyFragment == null) {
             parentFragmentManager.beginTransaction()
-                .add(R.id.viewpage, MonthFragment.newInstance(LocalDate.now()), "MonthlyFragment")
+                .add(R.id.viewpage, MonthFragment.newInstance(LocalDate.now()), "WeekFragment")
                 .commit()
         }
     }

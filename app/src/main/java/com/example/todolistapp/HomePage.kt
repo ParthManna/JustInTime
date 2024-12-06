@@ -56,7 +56,7 @@ class HomePage : AppCompatActivity() {
             .commit()
 
         binding.note.setOnClickListener {
-            startActivity(Intent(this, TaskActivity2::class.java))
+            startActivity(Intent(this, NoteActivity::class.java))
         }
 
         binding.schedule.setOnClickListener {

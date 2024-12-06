@@ -12,21 +12,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolistapp.CalenderAdapter
 import com.example.todolistapp.R
 import java.time.LocalDate
-import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-class MonthFragment : Fragment() {
+class WeekFragment : Fragment() {
 
     private lateinit var calendarRecyclerView: RecyclerView
-    private lateinit var monthYearText: TextView
+    private lateinit var weekText: TextView
     private lateinit var selectedDate: LocalDate
 
     companion object {
         private const val ARG_DATE = "date"
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun newInstance(date: LocalDate): MonthFragment {
-            val fragment = MonthFragment()
+        fun newInstance(date: LocalDate): WeekFragment {
+            val fragment = WeekFragment()
             val args = Bundle()
             args.putString(ARG_DATE, date.toString())
             fragment.arguments = args
@@ -45,70 +44,55 @@ class MonthFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_month, container, false)
+        val view = inflater.inflate(R.layout.fragment_week, container, false)
 
-        calendarRecyclerView = view.findViewById(R.id.calenderRecycleview)
-        monthYearText = view.findViewById(R.id.monthyeartv)
+        calendarRecyclerView = view.findViewById(R.id.recyclerViewWeek)
+        weekText = view.findViewById(R.id.monthyeartv)
 
-        setMonthView()
+        setWeekView()
 
         return view
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun setMonthView() {
-        val formattedDate = monthYearFromDate(selectedDate)
-        monthYearText.text = formattedDate
+    private fun setWeekView() {
+        val formattedDate = weekFromDate(selectedDate)
+        weekText.text = formattedDate
 
-        val daysInMonth: ArrayList<String> = dayInMonthArray(selectedDate)
+        val daysInWeek: ArrayList<String> = daysInWeekArray(selectedDate)
 
-        val calendarAdapter = CalenderAdapter(daysInMonth, selectedDate, object : CalenderAdapter.OnItemListener {
+        val calendarAdapter = CalendarAdapter2(daysInWeek, selectedDate, object : CalendarAdapter2.OnItemListener {
             override fun OnItemClick(position: Int, dayText: String?) {
                 if (dayText.isNullOrEmpty()) {
                     Toast.makeText(requireContext(), "Invalid date selected", Toast.LENGTH_SHORT).show()
                 } else {
-                    val message = "Selected Date: $dayText ${monthYearFromDate(selectedDate)}"
+                    val message = "Selected Date: $dayText ${weekFromDate(selectedDate)}"
                     Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
-        calendarRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7)
+        calendarRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7) // 7 columns for 7 days
         calendarRecyclerView.adapter = calendarAdapter
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun dayInMonthArray(date: LocalDate): ArrayList<String> {
-        val daysInMonthArray = ArrayList<String>()
-        val yearMonth = YearMonth.from(date)
-        val daysInMonth = yearMonth.lengthOfMonth()
+    private fun daysInWeekArray(date: LocalDate): ArrayList<String> {
+        val daysInWeekArray = ArrayList<String>()
+        val currentDayOfWeek = date.dayOfWeek.value // Monday = 1, Sunday = 7
 
-        val firstOfMonth = date.withDayOfMonth(1)
-        val dayOfWeek = firstOfMonth.dayOfWeek.value
+        // Get the start of the week (Monday)
+        val startOfWeek = date.minusDays((currentDayOfWeek).toLong())
 
-        // Add previous month's dates
-        val prevMonth = date.minusMonths(1)
-        val prevMonthYearMonth = YearMonth.from(prevMonth)
-        val daysInPrevMonth = prevMonthYearMonth.lengthOfMonth()
-        for (i in (daysInPrevMonth - dayOfWeek + 1)..daysInPrevMonth) {
-            daysInMonthArray.add(i.toString())
+        // Add all 7 days of the week to the array
+        for (i in 0 until 7) {
+            daysInWeekArray.add(startOfWeek.plusDays(i.toLong()).dayOfMonth.toString())
         }
 
-        // Add current month's dates
-        for (i in 1..daysInMonth) {
-            daysInMonthArray.add(i.toString())
-        }
-
-        // Add next month's dates
-        val remainingDays = 42 - daysInMonthArray.size
-        for (i in 1..remainingDays) {
-            daysInMonthArray.add(i.toString())
-        }
-
-        return daysInMonthArray
+        return daysInWeekArray
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun monthYearFromDate(date: LocalDate): String {
+    private fun weekFromDate(date: LocalDate): String {
         val formatter = DateTimeFormatter.ofPattern("MMMM yyyy")
         return date.format(formatter).uppercase()
     }

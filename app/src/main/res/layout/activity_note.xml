@@ -8,6 +8,7 @@
     android:padding="16dp"
     android:id="@+id/main"
     android:background="@drawable/button_background_task"
+    style="@style/Tasktheme"
     tools:context=".TaskActivity">
 
     <!-- App Bar Layout -->
