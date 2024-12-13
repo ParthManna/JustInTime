@@ -91,7 +91,8 @@ class NoteActivity : AppCompatActivity(), View.OnClickListener {
             description = description,
             category = category,
             date = alarmTime,
-            time = alarmTime
+            time = alarmTime,
+            soundUri = ""
         )
 
         // Insert task asynchronously and set an alarm

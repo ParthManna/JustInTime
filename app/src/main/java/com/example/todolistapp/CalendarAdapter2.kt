@@ -1,3 +1,5 @@
+package com.example.todolistapp
+
 import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
@@ -6,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolistapp.R
+import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -37,7 +39,7 @@ class CalendarAdapter2(
         val dayText = daysOfWeek[position]
 
         if (dayText.isEmpty()) {
-            // Empty cell
+            // For blank cells
             holder.dayOfMonth.text = ""
             holder.dayOfMonth.setBackgroundColor(Color.TRANSPARENT)
             return
@@ -45,40 +47,50 @@ class CalendarAdapter2(
 
         val dayNumber = dayText.toIntOrNull()
         if (dayNumber == null) {
-            // Invalid day
+            // Handle invalid day number gracefully
             holder.dayOfMonth.text = ""
             holder.dayOfMonth.setBackgroundColor(Color.TRANSPARENT)
             return
         }
 
-        // Validate day within the month
-        val yearMonth = YearMonth.of(selectedDate.year, selectedDate.monthValue)
-        if (dayNumber < 1 || dayNumber > yearMonth.lengthOfMonth()) {
-            // Invalid day for the current month
+        // Safely check if the day is valid for the selected month
+        val isValidDay = try {
+            YearMonth.of(selectedDate.year, selectedDate.month).atDay(dayNumber)
+            true
+        } catch (e: DateTimeException) {
+            false
+        }
+
+        if (!isValidDay) {
+            // Skip invalid days
             holder.dayOfMonth.text = ""
             holder.dayOfMonth.setBackgroundColor(Color.TRANSPARENT)
             return
         }
+
+        // Create the LocalDate after ensuring validity
+        val currentDate = LocalDate.of(selectedDate.year, selectedDate.monthValue, dayNumber)
 
         holder.dayOfMonth.text = dayText
-
-        // Styling for valid days
         holder.dayOfMonth.setTextColor(Color.WHITE)
         holder.dayOfMonth.setBackgroundColor(Color.TRANSPARENT)
 
-        val currentDate = LocalDate.of(selectedDate.year, selectedDate.monthValue, dayNumber)
         val today = LocalDate.now()
 
+        // Highlight today's date
         if (currentDate == today) {
-            holder.dayOfMonth.setBackgroundResource(R.drawable.today_background) // Highlight today
+            holder.dayOfMonth.setBackgroundResource(R.drawable.today_background)
             holder.dayOfMonth.setTextColor(Color.BLACK)
         }
 
-        // Highlight Sundays (only for days in the current month)
-        if (currentDate.dayOfWeek == java.time.DayOfWeek.SUNDAY) {
+        // Highlight Sundays only in the current month
+        if (currentDate.dayOfWeek == java.time.DayOfWeek.SUNDAY &&
+            currentDate.month == selectedDate.month
+        ) {
             holder.dayOfMonth.setTextColor(Color.RED)
         }
     }
+
 
     override fun getItemCount(): Int = daysOfWeek.size
 

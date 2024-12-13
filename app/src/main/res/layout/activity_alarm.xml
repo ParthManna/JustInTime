@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@drawable/background_alarm">
+
+        <!-- Time Display -->
+        <TextView
+            android:id="@+id/timeDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="08:25 PM"
+            android:textColor="#FFFFFF"
+            android:textSize="70sp"
+            android:textStyle="bold" />
+
+        <!-- Label -->
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Development for personal"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:layout_marginBottom="20dp"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            >
+
+            <!-- Snooze Button -->
+
+            <!-- Stop Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/snoozeButton"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="#3C1F7B"
+                android:text="Snooze"
+                android:textColor="#FFFFFF"
+                app:cornerRadius="10dp"
+                android:layout_margin="3dp"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="30sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/stopButton"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="#36157F"
+                android:text="Stop"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:layout_margin="3dp"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+</ScrollView>

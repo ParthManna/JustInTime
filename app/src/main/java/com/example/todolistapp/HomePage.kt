@@ -16,9 +16,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import com.example.todolistapp.databinding.ActivityHomePageBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class HomePage : AppCompatActivity() {
 
@@ -52,7 +49,7 @@ class HomePage : AppCompatActivity() {
         binding.fab.setOnClickListener { onFabButtonClicked() }
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frag_container, BlankFragment1())
+            .replace(R.id.frag_container, BlankFragment3())
             .commit()
 
         binding.note.setOnClickListener {
@@ -70,7 +67,7 @@ class HomePage : AppCompatActivity() {
 
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.frag_container, BlankFragment1())
+                .replace(R.id.frag_container, BlankFragment3())
                 .commit()
         }
 
@@ -117,44 +114,44 @@ class HomePage : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        val item = menu?.findItem(R.id.search)
-        val searchView = item?.actionView as? SearchView
-
-        item?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
-                displayTodo()
-                return true
-            }
-
-            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-                displayTodo()
-                return true
-            }
-        })
-
-        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (!newText.isNullOrEmpty()) {
-                    displayTodo(newText)
-                }
-                return true
-            }
-        })
-
+//        val item = menu?.findItem(R.id.search)
+//        val searchView = item?.actionView as? SearchView
+//
+//        item?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+//            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+//                displayTodo()
+//                return true
+//            }
+//
+//            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+//                displayTodo()
+//                return true
+//            }
+//        })
+//
+//        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean = false
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                if (!newText.isNullOrEmpty()) {
+//                    displayTodo(newText)
+//                }
+//                return true
+//            }
+//        })
+//
         return super.onCreateOptionsMenu(menu)
     }
-
-    private fun displayTodo(newText: String = "") {
-        db.todoDao().getTask().observe(this, Observer { tasks ->
-            list.clear()
-            if (tasks.isNotEmpty()) {
-                list.addAll(tasks.filter { todo -> todo.title.contains(newText, true) })
-                adapter.notifyDataSetChanged()
-            }
-        })
-    }
+//
+//    private fun displayTodo(newText: String = "") {
+//        db.todoDao().getTask().observe(this, Observer { tasks ->
+//            list.clear()
+//            if (tasks.isNotEmpty()) {
+//                list.addAll(tasks.filter { todo -> todo.title.contains(newText, true) })
+//                adapter.notifyDataSetChanged()
+//            }
+//        })
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

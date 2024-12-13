@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/background_notification"
+    android:padding="16dp"
+    android:gravity="center_vertical"
+    android:minHeight="120dp">
+
+    <!-- Notification Title -->
+    <TextView
+        android:id="@+id/notification_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task Title"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:contentDescription="Notification Title" />
+
+    <!-- Notification Subtitle (Time/Description) -->
+    <TextView
+        android:id="@+id/notification_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fri 6:27 PM • Swipe to stop"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:contentDescription="Notification Subtitle" />
+
+    <!-- Button Group (Snooze & Stop) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <!-- Snooze Button -->
+        <Button
+            android:id="@+id/btn_snooze"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Snooze"
+            android:background="@drawable/notification_btn_background"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="4dp"
+            android:paddingVertical="12dp"
+            android:contentDescription="Snooze Button" />
+
+        <!-- Stop Button -->
+        <Button
+            android:id="@+id/btn_stop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stop"
+            android:background="@drawable/notification_btn_background"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="4dp"
+            android:paddingVertical="12dp"
+            android:contentDescription="Stop Button" />
+    </LinearLayout>
+
+</LinearLayout>

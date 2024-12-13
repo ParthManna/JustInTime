@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -15,10 +15,10 @@
         android:textSize="50dp"
         android:fontFamily="sans-serif"
         android:textStyle="bold"
-        android:layout_marginStart="80dp"
         android:textColor="@color/white"
+        android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:gravity="center"/>
 
 
-</LinearLayout>
+</RelativeLayout>

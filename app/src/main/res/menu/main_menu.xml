@@ -8,11 +8,10 @@
         android:contentDescription="View Settings"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/search"
-        android:title="notification"
-        android:contentDescription="Search content"
-        android:icon="@android:drawable/ic_search_category_default"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+<!--    <item-->
+<!--        android:id="@+id/search"-->
+<!--        android:title="notification"-->
+<!--        android:contentDescription="Search content"-->
+<!--        android:icon="@android:drawable/ic_search_category_default"-->
+<!--        app:showAsAction="ifRoom|collapseActionView" />-->
 </menu>

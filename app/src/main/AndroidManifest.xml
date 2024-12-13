@@ -2,9 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Permissions for audio access -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
 
     <application
         android:allowBackup="true"
@@ -16,10 +24,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TodoListapp"
         tools:targetApi="31">
+        <service
+            android:name=".AlarmSoundService"
+            android:enabled="true"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="true" />
+
         <activity
             android:name=".NoteActivity"
             android:exported="false" />
-
         <activity
             android:name=".TaskActivity"
             android:exported="false" />
@@ -49,6 +62,15 @@
             android:name=".AlarmManagerBroadcast"
             android:exported="true"
             android:permission="TODO" />
+
+        <receiver android:name=".SnoozeReceiver" />
+        <receiver android:name=".StopReceiver" />
+
+
+        <activity
+            android:name=".AlarmActivity"
+            android:exported="true"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

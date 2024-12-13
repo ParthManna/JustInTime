@@ -1,26 +1,15 @@
 package com.example.todolistapp
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Build
 import android.util.Log
-import android.widget.Toast
-import androidx.core.app.NotificationCompat
-import com.example.todolistapp.AppDatabase
-import com.example.todolistapp.MainActivity
-import com.example.todolistapp.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.annotation.RequiresApi
 
 class AlarmManagerBroadcast : BroadcastReceiver() {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null || intent == null) {
             Log.e("AlarmManagerBroadcast", "Context or Intent is null.")
@@ -28,79 +17,25 @@ class AlarmManagerBroadcast : BroadcastReceiver() {
         }
 
         val taskId = intent.getLongExtra("taskId", -1L)
+//        val taskId2 = intent.getLongExtra("taskId2", -1L) // Extract taskId2
+
         if (taskId == -1L) {
-            Toast.makeText(context, "Error: Invalid Task ID", Toast.LENGTH_SHORT).show()
-            Log.e("AlarmManagerBroadcast", "Received invalid taskId: $taskId")
+            Log.e("AlarmManagerBroadcast", "Invalid taskId or taskId = $taskId")
             return
         }
 
-        // Show the notification
-        showNotification(context, taskId)
+        Log.i("AlarmManagerBroadcast", "Alarm triggered for taskId: $taskId")
 
-        // Play an alarm sound
-        val mediaPlayer = MediaPlayer.create(context, R.raw.dandadan_op)
-        mediaPlayer?.apply {
-            try {
-                setOnCompletionListener { release() }
-                start()
-            } catch (e: Exception) {
-                Log.e("AlarmManagerBroadcast", "MediaPlayer error: ${e.message}")
-                release()
-            }
+        // Start the foreground service to handle alarm sound and notification
+        val serviceIntent = Intent(context, AlarmSoundService::class.java).apply {
+            putExtra("taskId", taskId)
+//            putExtra("taskId2", taskId2) // Pass taskId2 to the service
         }
-    }
 
-    private fun showNotification(context: Context, taskId: Long) {
-        val channelId = "todo_alarm_channel"
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // Create the NotificationChannel, required for API 26+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Task Alarm Notifications",
-                NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                description = "Notifications for task alarms"
-            }
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        // Database query and notification creation in coroutine
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val db = AppDatabase.getDatabase(context)
-                val task = db.todoDao().getTaskById(taskId)
-
-                if (task != null) {
-                    withContext(Dispatchers.Main) {
-                        val activityIntent = Intent(context, MainActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        }
-                        val pendingIntent = PendingIntent.getActivity(
-                            context,
-                            taskId.toInt(),
-                            activityIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                        )
-
-                        val notification = NotificationCompat.Builder(context, channelId)
-                            .setSmallIcon(R.mipmap.ic_launcher_foreground)
-                            .setContentTitle(task.title)
-                            .setContentText(task.description)
-                            .setContentIntent(pendingIntent)
-                            .setAutoCancel(true)
-                            .setPriority(NotificationCompat.PRIORITY_HIGH)
-                            .build()
-
-                        notificationManager.notify(taskId.toInt(), notification)
-                    }
-                } else {
-                    Log.e("AlarmManagerBroadcast", "Task not found for taskId: $taskId")
-                }
-            } catch (e: Exception) {
-                Log.e("AlarmManagerBroadcast", "Error fetching task or showing notification: ${e.message}")
-            }
+            context.startForegroundService(serviceIntent)
+        } else {
+            context.startService(serviceIntent)
         }
     }
 }

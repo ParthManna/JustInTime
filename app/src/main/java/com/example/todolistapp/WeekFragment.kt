@@ -1,16 +1,16 @@
+package com.example.todolistapp
+
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolistapp.CalenderAdapter
-import com.example.todolistapp.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -61,16 +61,21 @@ class WeekFragment : Fragment() {
 
         val daysInWeek: ArrayList<String> = daysInWeekArray(selectedDate)
 
-        val calendarAdapter = CalendarAdapter2(daysInWeek, selectedDate, object : CalendarAdapter2.OnItemListener {
-            override fun OnItemClick(position: Int, dayText: String?) {
-                if (dayText.isNullOrEmpty()) {
-                    Toast.makeText(requireContext(), "Invalid date selected", Toast.LENGTH_SHORT).show()
-                } else {
-                    val message = "Selected Date: $dayText ${weekFromDate(selectedDate)}"
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        val calendarAdapter =
+            CalendarAdapter2(daysInWeek, selectedDate, object : CalendarAdapter2.OnItemListener {
+                override fun OnItemClick(position: Int, dayText: String?) {
+                    if (dayText.isNullOrEmpty()) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Invalid date selected",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        val message = "Selected Date: $dayText ${weekFromDate(selectedDate)}"
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    }
                 }
-            }
-        })
+            })
         calendarRecyclerView.layoutManager = GridLayoutManager(requireContext(), 7) // 7 columns for 7 days
         calendarRecyclerView.adapter = calendarAdapter
     }
@@ -78,18 +83,22 @@ class WeekFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun daysInWeekArray(date: LocalDate): ArrayList<String> {
         val daysInWeekArray = ArrayList<String>()
-        val currentDayOfWeek = date.dayOfWeek.value // Monday = 1, Sunday = 7
 
-        // Get the start of the week (Monday)
-        val startOfWeek = date.minusDays((currentDayOfWeek).toLong())
+        // Get the current day of the week (Sunday = 7)
+        val currentDayOfWeek = date.dayOfWeek.value
+        val daysFromSunday = if (currentDayOfWeek == 7) 0 else currentDayOfWeek
+        val startOfWeek = date.minusDays(daysFromSunday.toLong()) // Start of the week is Sunday
 
         // Add all 7 days of the week to the array
         for (i in 0 until 7) {
-            daysInWeekArray.add(startOfWeek.plusDays(i.toLong()).dayOfMonth.toString())
+            val currentDate = startOfWeek.plusDays(i.toLong())
+            // Use dayOfMonth only for the representation
+            daysInWeekArray.add(currentDate.dayOfMonth.toString())
         }
 
         return daysInWeekArray
     }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun weekFromDate(date: LocalDate): String {

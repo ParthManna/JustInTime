@@ -11,11 +11,18 @@ interface TodoDao {
     @Insert
     suspend fun insetTask(todoModel: TodoModel): Long
 
+//    @Insert
+//    suspend fun insetTask2(todoModel: TodoModel2): Long
+
+
     @Query("Select * from TodoModel where isFinished == -1")
     fun getTask(): LiveData<List<TodoModel>>
 
     @Query("SELECT * FROM TodoModel WHERE id = :uid")
     suspend fun getTaskById(uid: Long): TodoModel?
+
+//    @Query("SELECT * FROM TodoModel2 WHERE id = :uid")
+//    suspend fun getTaskById2(uid: Long): TodoModel2?
 
 
     @Query("Update TodoModel set isFinished = 1 where id=:uid")

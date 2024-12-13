@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,14 @@ class BlankFragment2 : Fragment() {
         db.todoDao2().getTask().observe(viewLifecycleOwner, Observer { tasks ->
             list.clear()
             if (!tasks.isNullOrEmpty()) {
-                list.addAll(tasks)
+                list.addAll(0, tasks)
+                Log.d("BlankFragment1", "Tasks found, hiding empty_notification")
+                binding.emptyNotification.visibility = View.GONE
+                binding.todoRv2.visibility = View.VISIBLE
+            } else {
+                Log.d("BlankFragment1", "No tasks, showing empty_notification")
+                binding.emptyNotification.visibility = View.VISIBLE
+                binding.todoRv2.visibility = View.GONE
             }
             todoAdapter.notifyDataSetChanged()
         })

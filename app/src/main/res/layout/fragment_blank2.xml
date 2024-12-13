@@ -1,50 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_3"
-    tools:context=".BlankFragment2">
+    android:fillViewport="true">
 
-    <!-- Search Bar -->
-    <EditText
-        android:id="@+id/searchButton"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:hint="Search Note"
-        android:textColorHint="@color/white"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:padding="12dp"
-        android:elevation="4dp"
-        android:background="@drawable/thumb"
-        android:gravity="start|center_vertical"
-        android:drawableStart="@android:drawable/ic_menu_search"
-        android:drawableTint="@color/white"
-        android:drawablePadding="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="Search notes input field"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_3"
+        tools:context=".BlankFragment2">
 
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/todoRv2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:contentDescription="List of notes"
-        app:layout_constraintTop_toBottomOf="@id/searchButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        <!-- Search Bar -->
+        <EditText
+            android:id="@+id/searchButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="Search Note"
+            android:textColorHint="@color/white"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:elevation="4dp"
+            android:background="@drawable/thumb"
+            android:gravity="start|center_vertical"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:drawableTint="@color/white"
+            android:drawablePadding="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="Search notes input field"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/todoRv2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="List of notes"
+            app:layout_constraintTop_toBottomOf="@id/searchButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <LinearLayout
+            android:id="@+id/empty_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/empty_list"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchButton">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="You Didn’t Have Any Note."
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
