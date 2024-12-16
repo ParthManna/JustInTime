@@ -37,6 +37,7 @@ class TaskActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityTaskBinding
     private lateinit var myCalendar: Calendar
+    private var ischange : Boolean = false
 
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
     private lateinit var timeSetListener: TimePickerDialog.OnTimeSetListener
@@ -61,6 +62,8 @@ class TaskActivity : AppCompatActivity(), View.OnClickListener {
                     saveAlarmSoundUri(it)
                     val fileName = getFileNameFromUri(it)
                     Toast.makeText(this, "Selected sound: $fileName", Toast.LENGTH_SHORT).show()
+                    binding.alarmAudio.text = fileName
+                    ischange = true
                 } catch (e: SecurityException) {
                     Log.e("AlarmSoundService", "Failed to persist URI permissions: ${e.message}", e)
                     Toast.makeText(this, "Unable to persist URI permissions.", Toast.LENGTH_SHORT).show()
@@ -125,10 +128,15 @@ class TaskActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
 
-//        // Retrieve the selected sound URI from shared preferences
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val selectedSoundUri = sharedPreferences.getString("alarm_sound_uri", null) ?: ""
+        val selectedSoundUri : String
 
+//        // Retrieve the selected sound URI from shared preferences
+        if(ischange) {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+            selectedSoundUri = sharedPreferences.getString("alarm_sound_uri", null) ?: ""
+        }else{
+            selectedSoundUri = ""
+        }
         // Create a TodoModel object
         val todoModel = TodoModel(
             title = title,
@@ -140,6 +148,8 @@ class TaskActivity : AppCompatActivity(), View.OnClickListener {
 
         )
 
+
+
 //        val todo = TodoModel2(
 //        )
 
@@ -150,18 +160,17 @@ class TaskActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(this@TaskActivity, "Task saved successfully!", Toast.LENGTH_SHORT).show()
 
             // Schedule alarm for the task
-            scheduleAlarm(newTaskId,alarmTime - 1 * 35 * 1000)
+            scheduleAlarm(newTaskId,alarmTime)
             finish() // Close the activity after saving
         }
     }
 
 
+
     private fun scheduleAlarm(taskId: Long, alarmTime: Long) {
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
-        // Check if the app can schedule exact alarms
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-            // Prompt the user to grant exact alarm permission
             requestExactAlarmPermission(this)
             Toast.makeText(
                 this,
@@ -171,35 +180,62 @@ class TaskActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
 
-        // Create an intent for the AlarmManagerBroadcast
-        val intent = Intent(this, AlarmManagerBroadcast::class.java).apply {
-            putExtra("taskId", taskId) // Pass task ID to the broadcast receiver
-//            putExtra("taskId2", taskId2)
-        }
+        val currentTime = System.currentTimeMillis()
 
-        val pendingIntent = PendingIntent.getBroadcast(
+        // Schedule the main alarm
+        val mainAlarmIntent = Intent(this, AlarmManagerBroadcast::class.java).apply {
+            putExtra("taskId", taskId)
+            putExtra("alarmTime", alarmTime)
+        }
+        val mainAlarmPendingIntent = PendingIntent.getBroadcast(
             this,
             taskId.toInt(),
-            intent,
+            mainAlarmIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        try {
-            // Schedule an exact alarm
+
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            alarmTime,
+            mainAlarmPendingIntent
+        )
+
+        // Calculate notification time
+        val notificationTime = alarmTime - (60 * 60 * 1000) // 1 hour before
+
+        if (notificationTime > currentTime) {
+
+            val notificationIntent = Intent(this, NotificationBroadcast::class.java).apply {
+                putExtra("taskId", taskId)
+            }
+            val notificationPendingIntent = PendingIntent.getBroadcast(
+                this,
+                taskId.toInt() + 1, // Unique ID for notification
+                notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+
             alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
-                alarmTime,
-                pendingIntent
+                notificationTime,
+                notificationPendingIntent
             )
-        } catch (e: SecurityException) {
-            // Handle exception gracefully
-            Toast.makeText(
-                this,
-                "Failed to schedule alarm: Exact alarm permission denied.",
-                Toast.LENGTH_LONG
-            ).show()
+
+        } else {
+            // Trigger immediate notification if less than 1 hour remains
+            showImmediateNotification(taskId)
         }
     }
+
+
+    private fun showImmediateNotification(taskId: Long) {
+        val intent = Intent(this, NotificationBroadcast::class.java).apply {
+            putExtra("taskId", taskId)
+        }
+        sendBroadcast(intent)
+    }
+
 
 
     private fun setDateListener() {

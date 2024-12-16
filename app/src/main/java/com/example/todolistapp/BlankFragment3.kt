@@ -158,8 +158,9 @@ class BlankFragment3 : Fragment(R.layout.fragment_blank3) {
                             try {
                                 // Insert the task back into the database
                                 val restoredTask = todo.copy(isFinished = if (direction == ItemTouchHelper.LEFT) -1 else todo.isFinished)
+                                restoredTask.id += 1
                                 db.todoDao().insetTask(restoredTask) // Re-insert task into the database
-                                restoredTask.id = restoredTask.id // Ensure proper ID handling
+//                                restoredTask.id = restoredTask.id // Ensure proper ID handling
 
                                 withContext(Dispatchers.Main) {
                                     // Add the task back to the list at the original position

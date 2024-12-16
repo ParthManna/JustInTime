@@ -15,7 +15,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.todolistapp.databinding.ActivityHomePageBinding
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomePage : AppCompatActivity() {
 
@@ -155,8 +160,31 @@ class HomePage : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.settings -> startActivity(Intent(this, Settings::class.java))
+            R.id.clearall -> clearalltask()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun clearalltask() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                // Clear all tasks from the database
+                db.todoDao().clearAllTasks()
+
+                withContext(Dispatchers.Main) {
+                    // Clear the list and notify the adapter
+                    list.clear()
+                    adapter.notifyDataSetChanged()
+
+
+                    // Show confirmation message
+                    Snackbar.make(binding.root, "All tasks cleared", Snackbar.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Snackbar.make(binding.root, "Failed to clear tasks", Snackbar.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 }

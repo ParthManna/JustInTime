@@ -48,8 +48,20 @@ class AlarmSoundService : Service() {
         // Show the notification with Snooze and Stop actions
         showNotification(taskId)
 
+        // Set auto-dismiss timeout (e.g., 1 hour or less)
+        setDismissTimeout(2 * 60 * 1000L) // 1 hour in milliseconds
+
         return START_NOT_STICKY
     }
+
+    private fun setDismissTimeout(delayMillis: Long) {
+        CoroutineScope(Dispatchers.Main).launch {
+            kotlinx.coroutines.delay(delayMillis)
+            Log.i("AlarmSoundService", "Timeout reached. Stopping alarm and dismissing notification.")
+            stopSelf() // Stops the service, dismissing the notification
+        }
+    }
+
 
     private fun playAlarmSound(taskId: Long) {
         CoroutineScope(Dispatchers.IO).launch {

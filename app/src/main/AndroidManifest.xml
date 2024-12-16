@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Permissions for audio access -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
-
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -24,11 +23,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TodoListapp"
         tools:targetApi="31">
+        <activity
+            android:name=".Completetask"
+            android:exported="false" />
+
         <service
             android:name=".AlarmSoundService"
             android:enabled="true"
-            android:foregroundServiceType="mediaPlayback"
-            android:exported="true" />
+            android:exported="true"
+            android:foregroundServiceType="mediaPlayback" />
 
         <activity
             android:name=".NoteActivity"
@@ -36,12 +39,7 @@
         <activity
             android:name=".TaskActivity"
             android:exported="false" />
-        <activity
-            android:name=".Settings"
-            android:exported="false" />
-        <activity
-            android:name=".Notification"
-            android:exported="false" />
+
         <activity
             android:name=".HomePage"
             android:exported="false" />
@@ -62,10 +60,13 @@
             android:name=".AlarmManagerBroadcast"
             android:exported="true"
             android:permission="TODO" />
-
+        <receiver
+            android:name=".NotificationBroadcast"
+            android:exported="true"
+            android:permission="TODO" />
         <receiver android:name=".SnoozeReceiver" />
         <receiver android:name=".StopReceiver" />
-
+        <receiver android:name=".StopReceiver2" />
 
         <activity
             android:name=".AlarmActivity"

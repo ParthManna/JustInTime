@@ -209,40 +209,19 @@
                 android:contentDescription="Select time for reminder" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                style="@style/LabelStyle"
-                android:text="Set Alarm"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                />
-
-            <TextView
-                android:id="@+id/resetSoundBtn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                app:drawableEndCompat="@drawable/baseline_refresh_24"
-                app:drawableTint="@color/white" />
-
-        </LinearLayout>
-
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            style="@style/LabelStyle"
+            android:text="Set Alarm"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -256,12 +235,11 @@
             app:boxCornerRadiusBottomStart="8dp"
             app:boxCornerRadiusBottomEnd="8dp"
             app:errorEnabled="true"
-            android:hint="Default Music  (Click to Change)"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <TextView
                 android:id="@+id/alarm_audio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -272,6 +250,7 @@
                 android:inputType="none"
                 android:focusable="false"
                 android:textSize="16sp"
+                android:text="Default Music  (Click to Change)"
                 android:backgroundTint="?android:attr/colorControlHighlight"
                 android:contentDescription="Select Audio for Alarm" />
         </com.google.android.material.textfield.TextInputLayout>

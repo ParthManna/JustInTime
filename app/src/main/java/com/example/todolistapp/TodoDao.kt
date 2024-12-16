@@ -18,6 +18,9 @@ interface TodoDao {
     @Query("Select * from TodoModel where isFinished == -1")
     fun getTask(): LiveData<List<TodoModel>>
 
+    @Query("SELECT * FROM TodoModel WHERE isFinished = 1")
+    fun getCompletedTasks(): LiveData<List<TodoModel>>
+
     @Query("SELECT * FROM TodoModel WHERE id = :uid")
     suspend fun getTaskById(uid: Long): TodoModel?
 
@@ -30,6 +33,10 @@ interface TodoDao {
 
     @Query("Delete from TodoModel where id=:uid")
     suspend fun deleteTask(uid: Long)
+
+    @Query("DELETE FROM TodoModel") // Replace 'tasks_table' with your actual table name
+    suspend fun clearAllTasks()
+
 
     @Query("SELECT * FROM TodoModel")
     suspend fun getTasksList(): List<TodoModel>
