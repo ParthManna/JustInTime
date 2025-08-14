@@ -1,2 +1,2 @@
 # TodoListApp 2.0
-This project is a To-Do List application built with Android (Java/Kotlin), aimed at helping users organize tasks, set priorities, and stay productive. The app allows users to create, manage, and prioritize their tasks with a user-friendly interface.
+A task management app built with Android (Java/Kotlin), designed to help users stay productive by organizing tasks efficiently. The application features a beautiful, intuitive UI and supports customizable task reminders with personalized notes. All data is stored locally, ensuring offline accessibility and fast performance. Users can create, edit, delete, and prioritize tasks with ease, making it a perfect companion for personal and professional productivity.
