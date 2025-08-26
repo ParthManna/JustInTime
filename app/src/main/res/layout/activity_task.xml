@@ -15,7 +15,7 @@
         android:id="@+id/main"
         android:theme="@style/Tasktheme"
         android:background="@drawable/background"
-        tools:context=".TaskActivity">
+        tools:context="com.parthasarathimanna.todolistapp.TaskActivity">
 
         <!-- App Bar Layout -->
         <com.google.android.material.appbar.AppBarLayout

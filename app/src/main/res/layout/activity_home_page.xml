@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <RelativeLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/background"
-        tools:context=".HomePage">
+        tools:context="com.parthasarathimanna.todolistapp.HomePage">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,7 +26,7 @@
             android:layout_width="298dp"
             android:layout_height="50dp"
             android:layout_below="@+id/toolbar"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="3dp"
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:layout_centerHorizontal="true"
@@ -112,8 +116,9 @@
             android:id="@+id/frag_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="115dp"
             android:orientation="vertical" />
 
 
     </RelativeLayout>
+</ScrollView>

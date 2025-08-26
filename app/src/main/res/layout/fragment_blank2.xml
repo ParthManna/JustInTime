@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_3"
-        tools:context=".BlankFragment2">
+        tools:context="com.parthasarathimanna.todolistapp.BlankFragment2">
 
         <!-- Search Bar -->
         <EditText
